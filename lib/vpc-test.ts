@@ -12,6 +12,18 @@ export class VpcStack extends cdk.Stack {
       ipAddresses: ec2.IpAddresses.cidr("10.0.0.0/25"),
       maxAzs: 1,
       natGateways: 0,
+      subnetConfiguration: [
+        {
+          name: "Public",
+          cidrMask: 26,
+          subnetType: ec2.SubnetType.PUBLIC,
+        },
+        {
+          name: "Private",
+          cidrMask: 26,
+          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+        },
+      ],
     });
 
     cdk.Tags.of(this.vpc).add("Name", "vpc-test");
